@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arjun J R - Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #000000;
+            overflow-x: hidden;
+            font-size: 15px;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            animation: fadeInDown 1s ease-out;
+            font-family: 'Space Mono', monospace;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.7;
+            font-weight: 300;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 0;
+            opacity: 0.7;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+            font-weight: 300;
+        }
+
+        .contact-info a:hover {
+            opacity: 1;
+            border-bottom: 2px solid white;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+
+        nav ul li {
+            padding: 20px 35px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s;
+            position: relative;
+            opacity: 0.7;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background: #ffffff;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            opacity: 1;
+        }
+
+        section {
+            margin: 80px auto;
+            padding: 0;
+            position: relative;
+        }
+
+        section:not(:last-child):after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        h2 {
+            color: #ffffff;
+            margin-bottom: 50px;
+            font-size: 2.2em;
+            font-weight: 700;
+            letter-spacing: -1px;
+            position: relative;
+            padding-bottom: 20px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        h2:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: #ffffff;
+        }
+
+        .objective {
+            font-size: 1.05em;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        .project-item, .internship-item {
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .project-item:last-child, .internship-item:last-child {
+            border-bottom: none;
+        }
+
+        .project-item:hover, .internship-item:hover {
+            padding-left: 20px;
+        }
+
+        .project-item h3, .internship-item h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .project-item p, .internship-item p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        .internship-date {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            margin-top: 40px;
+        }
+
+        .skill-category h3 {
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-size: 1.15em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 12px 0;
+            color: rgba(255, 255, 255, 0.6);
+            position: relative;
+            padding-left: 25px;
+            transition: all 0.3s;
+            font-weight: 300;
+        }
+
+        .skill-category li:before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+            font-weight: 300;
+        }
+
+        .skill-category li:hover {
+            color: #ffffff;
+            padding-left: 35px;
+        }
+
+        .education-item {
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+        }
+
+        .education-item:hover {
+            padding-left: 20px;
+        }
+
+        .education-item h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .education-item p {
+            color: rgba(255, 255, 255, 0.6);
+            margin: 8px 0;
+            font-weight: 300;
+        }
+
+        .additional-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+            margin-top: 40px;
+        }
+
+        .info-box h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .info-box p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.95);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 60px 0 40px;
+            margin-top: 100px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 300;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 1em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            transition: all 0.3s;
+            font-weight: 300;
+        }
+
+        .footer-section a:hover {
+            color: #ffffff;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            margin: 0;
+        }
+
+        .social-links a:hover {
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            padding-left: 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+
+        .status-badge {
+            display: inline-block;
+            color: #ffffff;
+            padding: 5px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.75em;
+            margin-left: 10px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 80px 0 60px;
+            }
+
+            header h1 {
+                font-size: 2.5em;
+                letter-spacing: -1px;
+            }
+
+            header p {
+                font-size: 1.1em;
+            }
+
+            nav ul {
+                padding: 10px 0;
+            }
+
+            nav ul li {
+                padding: 12px 18px;
+            }
+
+            nav ul li a {
+                font-size: 0.85em;
+            }
+
+            section {
+                margin: 60px auto;
+            }
+
+            h2 {
+                font-size: 2em;
+                margin-bottom: 40px;
+            }
+
+            .objective {
+                font-size: 1.1em;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .skills-grid, .additional-info {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .project-item:hover, 
+            .internship-item:hover,
+            .education-item:hover {
+                padding-left: 10px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            footer {
+                padding: 50px 0 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            nav ul li {
+                padding: 10px 12px;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+
+            .project-item, 
+            .internship-item,
+            .education-item {
+                padding: 30px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <header>
+        <div class="container">
+            <h1>Arjun J R</h1>
+            <p>Aspiring Software Engineer | Full Stack Developer</p>
+            <div class="contact-info">
+                <a href="tel:6361145404">6361145404</a>
+                <a href="mailto:arjunjr.dev@gmail.com">arjunjr.dev@gmail.com</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#internships">Internships</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <h2>Career Objective</h2>
+            <p class="objective">
+                Aspiring software engineer and final-year CSE undergraduate, eager to apply my technical skills in Python, web technologies (HTML, CSS, JavaScript), and problem-solving to build impactful software solutions, while enhancing my expertise and contributing to organizational success.
+            </p>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            
+            <div class="project-item">
+                <h3>AI Chatbot (Weather and Disaster Alert Chatbot)</h3>
+                <p>Designed a weather and disaster alert chatbot leveraging AI and API-based data sources to provide instant and reliable user notifications.</p>
+            </div>
+
+            <div class="project-item">
+                <h3>Innovative Smart Navigation System for Empowering the Blind</h3>
+                <p>Developed an AI-based software solution that provides voice-guided navigation assistance for visually impaired users. Integrated mapping and speech technologies to enable safe and independent mobility.</p>
+            </div>
+
+            <div class="project-item">
+                <h3>NLP Model for Better Healthcare Analytics <span class="status-badge">Ongoing</span></h3>
+                <p>Currently developing an NLP-based model for healthcare analytics to extract key insights from medical data and clinical text. Aims to enhance decision-making in the healthcare domain through intelligent data processing and analysis.</p>
+            </div>
+        </section>
+
+        <section id="internships">
+            <h2>Internships</h2>
+            
+            <div class="internship-item">
+                <div class="internship-date">January 2025 - March 2025</div>
+                <h3>Frontend Web Developer Intern - Codtech IT Solutions PVT.LTD</h3>
+                <p>Successfully completed a Web Developer Internship, gaining hands-on experience in designing, developing, and maintaining responsive web applications. Collaborated on front-end and back-end development using modern web technologies to deliver efficient and user-friendly solutions.</p>
+            </div>
+
+            <div class="internship-item">
+                <div class="internship-date">Ongoing</div>
+                <h3>Python Full Stack Development Intern - Dhee Coding Labs</h3>
+                <p>Working on real-world full stack projects involving Python, Django, REST APIs, React, and cloud deployment, with exposure to modern DevOps tools and agile development practices.</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <ul>
+                        <li>Programming: Python</li>
+                        <li>Tools: VS Code, GitHub, Git</li>
+                        <li>Web: HTML, CSS, JavaScript</li>
+                        <li>Database: SQL</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <ul>
+                        <li>Communication & Collaboration</li>
+                        <li>Problem-Solving</li>
+                        <li>Adaptability & Learning</li>
+                        <li>Leadership & Initiative</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <h3>BE in Computer Science Engineering</h3>
+                <p><strong>SJC Institute of Technology</strong></p>
+                <p>CGPA: 8.735 (till 6th Sem) | Expected Graduation: 2026</p>
+            </div>
+
+            <div class="education-item">
+                <h3>Intermediate (PCMB)</h3>
+                <p><strong>Shantiniketan's PU College</strong></p>
+                <p>Percentage: 89.33% | Year: 2022</p>
+            </div>
+
+            <div class="education-item">
+                <h3>SSLC</h3>
+                <p><strong>PPHS</strong></p>
+                <p>Percentage: 93.66%</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Additional Information</h2>
+            
+            <div class="additional-info">
+                <div class="info-box">
+                    <h3>Languages</h3>
+                    <p>Kannada (Fluent), English (Conversational), Hindi (Conversational)</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>Interests & Hobbies</h3>
+                    <p><strong>Interests:</strong> Listening to Music, Reading Tech Blogs</p>
+                    <p><strong>Hobbies:</strong> Cycling, Playing Cricket</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <a href="tel:6361145404">+91 6361145404</a>
+                    <a href="mailto:arjunjr.dev@gmail.com">arjunjr.dev@gmail.com</a>
+                    <p>Chikkaballapura , Karnataka, India</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#internships">Internships</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#education">Education</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank" title="GitHub">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" title="LinkedIn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="mailto:arjunjr.dev@gmail.com" title="Email">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Arjun J R. All rights reserved.</p>
+                
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.8s, transform 0.8s';
+            observer.observe(section);
+        });
+
+        // Animated particle background
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = document.body.scrollHeight;
+
+        const particles = [];
+        const particleCount = 60;
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 1.5 - 0.75;
+                this.speedY = Math.random() * 1.5 - 0.75;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width || this.x < 0) {
+                    this.speedX = -this.speedX;
+                }
+                
+                if (this.y > canvas.height || this.y < 0) {
+                    this.speedY = -this.speedY;
+                }
+            }
+            
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 - distance / 1000})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = document.body.scrollHeight;
+        });
+
+        window.addEventListener('scroll', () => {
+            canvas.height = document.body.scrollHeight;
+        });
+    </script>
+</body>
+</html>
